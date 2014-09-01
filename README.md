@@ -10,28 +10,39 @@ This implementation roughly corresponds to the algorithm described in the paper:
 
 # Getting started
 
-* Make sure openMPI  is installed.  (See the following section for details.)
+* Make sure that you have a compiler that supports C++11.  Recent versions of g++ and clang++ are known to work.
+* Make sure openMPIand/or openMP is installed, if you want parallelism.  (See the following section for details.)
+ * These are optional, but obviously will speed things up if you have them.
 * Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
 * Go to the main code directory, and edit the `make.sh` script to use the compiler you want.
- * Your compiler needs to support c++11.  Recent versions of g++ and clang++ are known to work.
+ * Your compiler needs to support c++11.
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the executables for Marbl.
 * Run a few of the [examples](examples).
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
-
-# Requirements
-
-Compiling Marbl requires a C++ compiler that supports C++11, and openMPI for parallelism.
-
-[openMPI](http://www.open-mpi.org/) is a tool for parallel computing. While openMPI is typically used on clusters, it can manage communication between processes on a single computer.  Thus, Marbl uses this single mechanism for parallelism, both on single machines and clusters.
-  * On linux or Mac OS, openMPI is trivially installed using your favorite package management system.  For example, using [homebrew](http://brew.sh/) on Mac OS, it can be installed with `brew install openmpi`.
-  * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/). 
 
 # Features
 
 * Marbl can handle quite arbitrary problems, with factors of any size, and variables taking any number of values.
 * Marbl uses [openMPI](http://www.open-mpi.org/) for parallelism.  This is trivial to use on a single machine to get your problem running.  (Essentially, you just install openMPI, and then compile using the provided scripts.)  Since almost all clusters provide MPI, you can also run Marbl on clusters of computers.  We have observed essentially linear speedups using up to several hundred cores.
 * Marbl is a command-line tool, with inputs in very simple specified text formats.  Thus, you can use whatever (presumably high-level) language to create your problem, by writing a simple routine to produce the data and graph specifications in the appropriate format.
+
+# Requirements
+
+Strictly speaking, Marbl requires no external libraries.  However, learning can be parallelized, using either openMP or openMPI.  These are both optional.
+
+## openMP
+
+[openMP](http://openmp.org/wp/) is a platform for shared-memory computing.  (i.e. using multiple threads on a single machine).  The executable `learn_CRF` can use openMP if your compiler supports it.  Generally, it would be easier to just install a compiler that supports openMP than trying to install openMP separately.
+
+[Most recent compilers](http://openmp.org/wp/openmp-compilers/) support openMP out of the box.  The major exception is recent versions of xcode/clang on Mac OS.  (i.e. the default gcc compiler).
+
+## openMPI
+
+Despite the similar name, and despite similar goals of parallel computing, openMPI is completely disjoint from openMP.  [openMPI](http://www.open-mpi.org/) is a tool for parallel computing. While openMPI is typically used on clusters, it can manage communication between processes on a single computer.  Thus, Marbl’s `learn_CRF_mpi` uses this single mechanism for parallelism, both on single machines and clusters.
+  * On linux or Mac OS, openMPI is trivially installed using your favorite package management system.  For example, using [homebrew](http://brew.sh/) on Mac OS, it can be installed with `brew install openmpi`.
+  * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/). 
+
 
 # Comparison with JGML
 

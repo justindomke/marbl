@@ -18,22 +18,10 @@ Where `y0` can have the `3` possible values 0,1,2.  The input features are of le
 ```
 f0(y0=0;x)
 f0(y0=1;x)
-…
 f0(y0=3;x)
 ```
 
-as a single vector of length 3, these are given by multiplying the input features with a 3x2 matrix W.
-
-In this example, we will use the following tiny dataset
-
-```
-input  1: 0 1
-output 1: 0
-input  2: 1 0
-output 2: 1
-input  3 -1 -1
-output 3: 2
-```
+as a single vector of length 3, these are given by multiplying the input features `f0` with a 3x2 matrix W.
 
 You can run this example by doing, from the command line
 
@@ -60,7 +48,18 @@ These lines are explained as follows:
 3. `1 0` specifies that there is `1` factor (must match above line) with a "type" of `0`.
 4. `1 0` specifies that the first (and only) factor contains `1` node, namely node `0`.
 
-`data1.txt` has the following form:
+This example will use the following tiny dataset
+
+```
+input  1: 0 1
+output 1: 0
+input  2: 1 0
+output 2: 1
+input  3 -1 -1
+output 3: 2
+```
+
+This is specified for Marbl with `data1.txt` having the following form:
 
 ```
 1
