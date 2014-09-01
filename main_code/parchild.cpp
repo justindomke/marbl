@@ -406,7 +406,7 @@ void infer_parchild_bprop(Messages & m, std::vector<MatrixXd> & theta, double & 
 // 1: create a flag that tells us when marginals need to be updated
 // 2: (better) greedily update the marginals when messages change
 
-std::vector<MatrixXd> infer_parchild(Messages & m, std::vector<MatrixXd> & theta, MatrixXd & ent){
+std::vector<MatrixXd> infer_parchild(Messages & m, std::vector<MatrixXd> & theta, MatrixXd & ent, int niter){
   // make a set of uniform marginals
   std::vector<MatrixXd> mu;
   for(int alpha=0; alpha<m.cliques.size(); alpha++){
@@ -442,8 +442,7 @@ std::vector<MatrixXd> infer_parchild(Messages & m, std::vector<MatrixXd> & theta
       mu_margAR[alpha].push_back(MatrixXd(m.nconfigs(alpha),1));
   }
 
-  int MAXITER = 5;
-  for(int iter=0; iter<MAXITER; iter++){
+  for(int iter=0; iter<niter; iter++){
     //for(int nu=0; nu<m.cliques.size(); nu++){
     
     for(int nu0=0; nu0<m.cliques.size()*2; nu0++){

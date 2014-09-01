@@ -1,7 +1,13 @@
 single node inference
 =====
 
-This example shows how to use the `infer_MRF` executable to do inference on pretty much the simplest possible graph: a single-node model.  In this model, we have that
+This example shows how to use the `infer_MRF` executable to do inference on pretty much the simplest possible graph: a single-node model.
+
+```
+   (x0)
+```
+
+In this model, we have that
 
 ```
 p(x0=0) = exp(-1)/Z
@@ -11,10 +17,11 @@ p(x0=1) = exp(+1)/Z
 for some normalization factor Z.  You can run this example by doing, from the command line
 
 ```
-./infer_MRF -m examples/singlenode_inference/model.txt -f examples/singlenode_inference/theta.txt -mu marginals.txt
+./infer_MRF -m examples/singlenode_inference/model.txt -f examples/singlenode_inference/theta.txt -mu marginals.txt -i 1 
 ```
 
-This will read the graph specified in `model.txt` and the parameters specified in `theta.txt`, do inference, and produce marginals in the file `marginals.txt'
+This will read the graph specified in `model.txt` and the parameters specified in `theta.txt`, do inference, and produce marginals in the file `marginals.txt’.  `-i 1` specifies that a single pass of updates over the variables is to be done.
+
 
 `model.txt` has the following form:
 
@@ -51,7 +58,7 @@ After running the code, a file `marginals.txt` will be produced in the main dire
 This is explained as follows:
 1. The first (and only) factor has `2` possible configurations, and these have a marginal probability of `0.119203` and `0.880797`
 
-Note that this makes sense.  If we look at the original specification of the model, we could have calculated by hand that
+Note that this makes sense.  If we look at the original specification of the model, we could have calculated the probabilities by hand:
 
 ```
 p(x0=0)=exp(-1)/(exp(-1)+exp(+1))=0.119203

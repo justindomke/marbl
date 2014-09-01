@@ -13,9 +13,9 @@ This implementation roughly corresponds to the algorithm described in the paper:
 * Make sure openMPI  is installed.  (See the following section for details.)
 * Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
 * Go to the main code directory, and edit the `make.sh` script to use the compiler you want.
- * This needs to support C++11.  The default compiler provided with Mac OS doesn’t 
+ * Your compiler needs to support c++11.  Recent versions of g++ and clang++ are known to work.
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the executables for Marbl.
-* Run a few of the [examples](examples)
+* Run a few of the [examples](examples).
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
 

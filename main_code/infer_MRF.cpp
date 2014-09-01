@@ -42,6 +42,17 @@ int main(int argc, char * argv[]){
   if(where_mu == argc)
     throw MyException("Error! no marginals flag found! (-mu)");
 
+  int where_i = 0;
+  niters = 10;
+  while(where_i < argc && strcmp(argv[where_i],"-i")!=0)
+    where_i++;
+  if(where_i >= argc-1){
+    cout << "using default of " << niters << " iters" << endl;
+  }else{
+    niters = stoi(argv[where_i+1]);
+    cout << "using " << niters << " iters" << endl;
+  }
+
   std::vector<MatrixXi> cliques; int nnodes; MatrixXi nvals; MatrixXd ent; MatrixXi cliquetype;
   tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1]);
   Messages m = Messages(cliques, nvals, nnodes, ent, cliquetype);
