@@ -10,9 +10,12 @@ This implementation roughly corresponds to the algorithm described in the paper:
 
 # Getting started
 
-* Make sure openMPI and libLBFGS are installed.  (See the following section for details.)
-* Download the code.  (You should see a “Download ZIP” link in the lower-right hand side of the [main page](https://github.com/justindomke/marbl)
-* Go to the main code directory, and run the `make.sh` script.
+* Make sure openMPI  is installed.  (See the following section for details.)
+* Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
+* Go to the main code directory, and edit the `make.sh` script to use the compiler you want.
+ * This needs to support C++11.  The default compiler provided with Mac OS doesn’t 
+* Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the executables for Marbl.
+* Run a few of the [examples](examples)
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
 
@@ -37,20 +40,20 @@ Marbl is similar to the [JGMT](http://users.cecs.anu.edu.au/~jdomke/JGMT/) toolb
 * Language
  * JGMT is implemented in a mix of Matlab and C++, and must be used through Matlab.
  * Marbl is a command-line tool written in pure C++.  Interaction is via the command-line and text files specifying the data and structure of the graph.
- * However, one would typically create the inputs to Marbl using a high-level language, and some examples of this in Matlab are provided.
+ * However, one would typically create the inputs to Marbl using a high-level language, and an interface doing this is provided in Matlab.
 
 * Limitations
  * JGMT can only handle pairwise graphs.  Marbl can handle arbitrarily large factors.
  * JGMT assumes that all variables have the same possible number of values.  Marbl does not assume this.
- * JGMT is reasonably efficient.  Marbl is better still.
+ * JGMT is reasonably efficient.  Marbl is still more reasonable.
 
 * Parallelism
  * Marbl uses openMPI for parallelism.  This can be used either on a single machine, or on a cluster of computers.
  * JGMT is parallel to some degree, using Matlab’s parfor mechanism.  However, this requires the (expensive) parallel computing toolbox to use up to 12 cores, and the (yet more expensive) distributed computing toolbox to use more than that.
 
-* Acknowledgements
+# Acknowledgements
 
-Marbl includes the code for two software packages
+Marbl includes the code for two other packages:
 
 * [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), a template library for linear algebra.
 * [libLBFG](http://www.chokkan.org/software/liblbfgs/) is a C library for the L-BFGS optimization algorithm.
