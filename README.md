@@ -10,20 +10,19 @@ This implementation roughly corresponds to the algorithm described in the paper:
 
 # Getting started
 
+* Make sure openMPI and libLBFGS are installed.  (See the following section for details.)
+* Download the code.  (You should see a “Download ZIP” link in the lower-right hand side of the [main page](https://github.com/justindomke/marbl)
+* Go to the main code directory, and run the `make.sh` script.
 
+Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
 
 # Requirements
 
-Compiling Marbl requires a C++ compiler that supports C++11, and two easily-installed external projects.
+Compiling Marbl requires a C++ compiler that supports C++11, and openMPI for parallelism.
 
-For example, using [homebrew](http://brew.sh/) on Mac OS, these can be installed as `brew install liblbfgs` and `brew install openmpi`.
-
-* [openMPI](http://www.open-mpi.org/) is a tool for parallel computing. While openMPI is typically used on clusters, it can manage communication between processes on a single computer.  Thus, Marbl uses this single mechanism for parallelism, both on single machines and clusters.
-  * On linux or Mac OS, openMPI is trivially installed using your favorite package management system, as discussed above.
+[openMPI](http://www.open-mpi.org/) is a tool for parallel computing. While openMPI is typically used on clusters, it can manage communication between processes on a single computer.  Thus, Marbl uses this single mechanism for parallelism, both on single machines and clusters.
+  * On linux or Mac OS, openMPI is trivially installed using your favorite package management system.  For example, using [homebrew](http://brew.sh/) on Mac OS, it can be installed with `brew install openmpi`.
   * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/). 
-
-* [libLBFG](http://www.chokkan.org/software/liblbfgs/) is a C library for the L-BFGS optimization algorithm.
- * On Linux or Mac OS, liblbfgs is trivially installed using your favorite package management system.
 
 # Features
 
@@ -51,8 +50,9 @@ Marbl is similar to the [JGMT](http://users.cecs.anu.edu.au/~jdomke/JGMT/) toolb
 
 * Acknowledgements
 
-Marbl includes the code for Eigen.
+Marbl includes the code for two software packages
 
 * [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), a template library for linear algebra.
+* [libLBFG](http://www.chokkan.org/software/liblbfgs/) is a C library for the L-BFGS optimization algorithm.
 
-Note that Eigen is under the [Mozilla public license](http://www.mozilla.org/MPL/2.0), which places some (very minor) restrictions on how it (and thus Marbl) can be used.
+Note that while Marbl and libLBFGS are under the [MIT license](http://opensource.org/licenses/MIT) (under which you are, roughly speaking, allowed to do whatever you want) Eigen is under the [Mozilla public license](http://www.mozilla.org/MPL/2.0), which places some (very minor) restrictions on how it (and thus Marbl) can be used.
