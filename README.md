@@ -8,12 +8,22 @@ Marginal based learning of Conditional Random Field parameters.
 This implementation roughly corresponds to the algorithm described in the paper:
  * Justin Domke, [Learning Graphical Model Parameters with Approximate Marginal Inference](http://users.cecs.anu.edu.au/~jdomke/papers/2013pami.pdf), IEEE Transactions on Pattern Analysis, 2013.
 
+# Getting started
+
+
+
 # Requirements
 
-* The only external requirement of Marbl is openMPI and a C++ compiler that supports C++11.  (i.e. a recent-ish one.)
- * While openMPI is often used on clusters, it is also efficient to use for inter-process communication between multiple processes on a single computer.  Thus, Marbl uses this single mechanism for parallelism, both on single machines and cluster.
- * On linux or Mac OS, openMPI is trivially installed using a package management system.  For example, using [homebrew](http://brew.sh/), one requires only `brew install openmpi`.
- * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/).
+Compiling Marbl requires a C++ compiler that supports C++11, and two easily-installed external projects.
+
+For example, using [homebrew](http://brew.sh/) on Mac OS, these can be installed as `brew install liblbfgs` and `brew install openmpi`.
+
+* [openMPI](http://www.open-mpi.org/) is a tool for parallel computing. While openMPI is typically used on clusters, it can manage communication between processes on a single computer.  Thus, Marbl uses this single mechanism for parallelism, both on single machines and clusters.
+  * On linux or Mac OS, openMPI is trivially installed using your favorite package management system, as discussed above.
+  * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/). 
+
+* [libLBFG](http://www.chokkan.org/software/liblbfgs/) is a C library for the L-BFGS optimization algorithm.
+ * On Linux or Mac OS, liblbfgs is trivially installed using your favorite package management system.
 
 # Features
 
@@ -37,4 +47,12 @@ Marbl is similar to the [JGMT](http://users.cecs.anu.edu.au/~jdomke/JGMT/) toolb
 
 * Parallelism
  * Marbl uses openMPI for parallelism.  This can be used either on a single machine, or on a cluster of computers.
- * JGMT is parallel to some degree, using matlabs parfor mechanism.
+ * JGMT is parallel to some degree, using Matlab’s parfor mechanism.  However, this requires the (expensive) parallel computing toolbox to use up to 12 cores, and the (yet more expensive) distributed computing toolbox to use more than that.
+
+* Acknowledgements
+
+Marbl includes the code for Eigen.
+
+* [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), a template library for linear algebra.
+
+Note that Eigen is under the [Mozilla public license](http://www.mozilla.org/MPL/2.0), which places some (very minor) restrictions on how it (and thus Marbl) can be used.
