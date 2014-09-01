@@ -70,8 +70,6 @@ int main(int argc, char * argv[]){
     cout << "using " << niters << " iters" << endl;
   }
 
-
-
   //string where = "/Volumes/ramdisk/";
   string where = "./";
 
