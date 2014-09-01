@@ -26,13 +26,13 @@ as a single vector of length 3, these are given by multiplying the input feature
 You can run this example by doing, from the command line
 
 ```
-./learn_CRF -m examples/logistic_regression/model*.txt -f examples/logistic_regression/data*.txt
+./learn_CRF -m examples/logistic_regression/model*.txt -d examples/logistic_regression/data*.txt
 ```
 
 This will read the graph specified in `model.txt` and the parameters specified in `theta.txt`, do inference, and produce marginals in the file `marginals.txt’.  `-i 1` specifies that a single pass of updates over the variables is to be done.
 
 
-`model1.txt`, `model2.txt`, and `model3.txt` are identical, and have the following form (very similar to that used in the [single node MRF inference](singlenode_inference.md] example.
+`model1.txt`, `model2.txt`, and `model3.txt` are identical, and have the following form (very similar to that used in the [single node MRF inference](singlenode_inference.md) example.
 
 ```
 1 3

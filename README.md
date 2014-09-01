@@ -16,10 +16,12 @@ This implementation roughly corresponds to the algorithm described in the paper:
 * Go to the main code directory, and edit the `make.sh` script in three ways
  * Change the `compiler` variable to the one for your system
  * Set the `use_openmp` variable to true/false, depending on if you want openMP support
-* Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the `infer_MRF`, `learn_CRF` and (if you have MPI installed) `learn_CRF_mpi` executables.
+* Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the `infer_MRF`, `infer_CRF`, `learn_CRF` and (if you have MPI installed) `learn_CRF_mpi` executables.
 * Go through a few of the [examples](examples) to get some idea of what you are doing.
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
+
+To uninstall Marbl, just delete the main directory.  Nothing is installed anywhere else, and the environment isn’t changed in any way.
 
 # Features
 

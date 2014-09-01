@@ -52,5 +52,5 @@ else
 fi
 
 export OMPI_CXX=${compiler}
-mpic++ -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF_mpi.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_mpi
+mpic++ -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF_mpi.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF_mpi
 
