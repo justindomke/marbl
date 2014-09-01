@@ -35,26 +35,56 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
+  int where_m = 0;
+  while(where_m < argc && strcmp(argv[where_m],"-m")!=0 )
+    where_m++;
+  if(where_m == argc)
+    throw MyException("Error! no model flag found! (-m)");
+
+  int where_d = 0;
+  while(where_d < argc && strcmp(argv[where_d],"-d")!=0 )
+    where_d++;
+  if(where_d == argc)
+    throw MyException("Error! no data flag found! (-d)");
+
+  int where_w = 0;
+  while(where_w < argc && strcmp(argv[where_w],"-w")!=0 )
+    where_w++;
+  if(where_w == argc)
+    throw MyException("Error! no weights flag found! (-w)");
+
+  int where_mu = 0;
+  while(where_mu < argc && strcmp(argv[where_mu],"-mu")!=0 )
+    where_mu++;
+  if(where_mu == argc)
+    throw MyException("Error! no marginals flag found! (-mu)");
+
+  int where_i = 0;
+  int niters = 10;
+  while(where_i < argc && strcmp(argv[where_i],"-i")!=0)
+    where_i++;
+  if(where_i >= argc-1){
+    cout << "using default of " << niters << " iters" << endl;
+  }else{
+    niters = stoi(argv[where_i+1]);
+    cout << "using " << niters << " iters" << endl;
+  }
+
+
+
   //string where = "/Volumes/ramdisk/";
   string where = "./";
 
   std::vector<MatrixXd> x;
-  read_data(where + "data.txt", x);
-  //return 0;
+  read_data(argv[where_d+1], x);
 
-  //cout << "here is x:" << endl;
-  //cout << x[0][0] << endl;
-
-  //int nnodes;
-  //MatrixXi nvals;
-  //auto cliques = read_model(nnodes, nvals);
   std::vector<MatrixXi> cliques; int nnodes; MatrixXi nvals; MatrixXd ent; MatrixXi cliquetype;
-  tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(where + "model.txt");
+  tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1]);
   Messages m = Messages(cliques, nvals, nnodes, ent, cliquetype);
 
   //cout << ent << endl;
 
-  auto W = read_params("Win.txt");
+  auto W = read_params(argv[where_w+1]);
 
   // cout << "here is W:" << endl;
   // cout << W.size() << endl;
@@ -75,8 +105,8 @@ int main(int argc, char * argv[]){
   //test_indexing(m);
   //test_msg_indexing(m);
 
-  auto mu = infer_parchild(m,theta,ent);
-  write_marginals(where + "mu.txt",mu);
+  auto mu = infer_parchild(m,theta,ent,niters);
+  write_marginals(argv[where_mu+1],mu);
 
   return 0;
 }

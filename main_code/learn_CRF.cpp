@@ -27,18 +27,6 @@
 
 using namespace std;
 
-// TO install liblbfgs
-// download it, untar it, go to directory
-// ./configure --prefix=/home/jcdicsa/.liblbfgs
-// make
-// make install
-
-// IMPORTANT: export OMP_STACKSIZE=10m
-// g++-4.8 -O3 -fopenmp -std=c++11 learn.cpp -llbfgs -Ieigen313/ -o learn
-
-// LINUX COMPILE
-// g++ -fopenmp -O2 -std=c++11 learn.cpp -Wl,-Bstatic -I/home/jcdicsa/.liblbfgs/include -L/home/jcdicsa/.liblbfgs/lib -llbfgs -Wl,-Bdynamic -Ieigen313/ -o learn
-
 int main(int argc, char * argv[]){
   Eigen::initParallel();
 

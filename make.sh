@@ -1,9 +1,11 @@
 #!/bin/bash -x
 
 # on Mac OS, default compiler if problematic
-#compiler=g++-4.9
+compiler=g++-4.9
 #compiler=clang++
-compiler=g++
+#compiler=g++
+
+use_openmp=true
 
 where_make="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -21,9 +23,14 @@ where_eigen=${where_make}/main_code/eigen322
 
 ## theoretically, don't need lbfgs for infer_{MRF/CRF} executables, but because of the way the code is structured, included anyway
 
-## previously used -flto flag
-${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_MRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_MRF
+#${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_MRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_MRF
 #${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_CRF
+
+if $use_openmp; then
+    ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF
+else
+    ${compiler} -O3 -Ofast -funroll-loops -fopenmp -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF
+fi
 
 #export OMPI_CXX=${compiler}
 #mpic++ -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_mpi.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_mpi
