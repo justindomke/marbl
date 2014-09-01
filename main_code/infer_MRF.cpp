@@ -43,7 +43,7 @@ int main(int argc, char * argv[]){
     throw MyException("Error! no marginals flag found! (-mu)");
 
   int where_i = 0;
-  niters = 10;
+  int niters = 10;
   while(where_i < argc && strcmp(argv[where_i],"-i")!=0)
     where_i++;
   if(where_i >= argc-1){
@@ -63,7 +63,7 @@ int main(int argc, char * argv[]){
   //test_indexing(m);
   //test_msg_indexing(m);
 
-  auto mu = infer_parchild(m,theta,ent);
+  auto mu = infer_parchild(m,theta,ent,niters);
   write_marginals(argv[where_mu+1],mu);
 
   return 0;

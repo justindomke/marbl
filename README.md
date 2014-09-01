@@ -11,13 +11,13 @@ This implementation roughly corresponds to the algorithm described in the paper:
 # Getting started
 
 * Make sure that you have a compiler that supports C++11.  Recent versions of g++ and clang++ are known to work.
-* Make sure openMPIand/or openMP is installed, if you want parallelism.  (See the following section for details.)
- * These are optional, but obviously will speed things up if you have them.
+* (optional) Make sure openMPIand/or openMP is installed, if you want parallelism.  (See the following section for details.)
 * Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
-* Go to the main code directory, and edit the `make.sh` script to use the compiler you want.
- * Your compiler needs to support c++11.
+* Go to the main code directory, and edit the `make.sh` script in two simple ways:
+ * Change the `compiler` variable to the one for your system
+ * Set the `use_openmp` variable to true/false, depending on if you want openMP support
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the executables for Marbl.
-* Run a few of the [examples](examples).
+* Go through a few of the [examples](examples) to get some idea of what you are doing.
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
 
