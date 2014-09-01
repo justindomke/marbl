@@ -58,13 +58,15 @@ These lines are explained as follows:
 3. `7 0 0 0 0 0 0 0`  specifies that there are `7` factors (must match above line) with a "type" of `0`.  (This is not used with MRF inference, but must be specified to be consistent with the model format used with CRFs)
 4. `1 0` specifies that the first factor contains `1` node, namely node `0`.
 5. `2 0 1` specifies that the second factor contains `2` nodes, namely `0` and `1`.
-6. `1 1` specifies that the first factor contains `1` node, namely node `1`.
-7. `2 1 2` specifies that the first factor contains `2` nodes, namely `1` and `2`.
-8. `1 2` specifies that the first factor contains `1` node, namely node `2`.
-9. `2 2 3` specifies that the first factor contains `2` nodes, namely `2` and `3`.
-10. `1 3` specifies that the first factor contains `1` node, namely node `3`.
+6. `1 1` specifies that the third factor contains `1` node, namely node `1`.
+7. `2 1 2` specifies that the fourth factor contains `2` nodes, namely `1` and `2`.
+8. `1 2` specifies that the fifth factor contains `1` node, namely node `2`.
+9. `2 2 3` specifies that the sixth factor contains `2` nodes, namely `2` and `3`.
+10. `1 3` specifies that the seventh factor contains `1` node, namely node `3`.
 
 Why put the factors in this order?  This is because inference in this toolbox proceeds in the order specified here.  Namely, one iterations corresponds to, first, updating all factors in the order given, and then updating all factors in the reverse of the order given.  For a chain, this means that all messages will have converged in a single iteration
+
+Where do the entropy factors come from?  These correspond to the [Bethe entropy](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.21.2420).  For pairwise graphs, the Bethe entropy gives a count of 1 to all pairs, and a count of 1-(#pairs-touching) for all nodes.  This is exact in treelike graphs, such as above.  However, with high-treewidth graphs, one will only produce approximate marginals, and the selection of entropy constants is still a subject of active research.  Thus, the toolbox gives you the power to select these yourself.
 
 `theta.txt` has the following form:
 
