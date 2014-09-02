@@ -8,8 +8,8 @@
 #include <tuple>
 #include <stack>
 
-#define DEBUG
-//#define NDEBUG
+//#define DEBUG
+#define NDEBUG
 
 #include "eigenstuff.cpp"
 #include "util.cpp"

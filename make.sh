@@ -10,14 +10,6 @@ compiler=g++
 
 where_make="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# make sure compiler can be found
-if command -v ${compiler} >/dev/null 2>&1; then
-    echo using specified '"'${compiler}'"' compiler
-else
-    echo ERROR! cannot find compiler: '"'${compiler}'"'.  Edit make.sh to specify your preferred compiler.
-    exit 1
-fi
-
 ## first of all, install libLBFGS to a local directory
 echo compiling libLBFGS
 rm -r ${where_make}/main_code/lbfgs >/dev/null 2>&1
@@ -36,6 +28,14 @@ fi;
 # remove temporary files created by installation of liblbfgs
 rm config.h config.log config.status libtool Makefile stamp-h1
 rm -r lib sample
+
+# make sure compiler can be found
+if command -v ${compiler} >/dev/null 2>&1; then
+    echo using specified '"'${compiler}'"' compiler
+else
+    echo ERROR! cannot find compiler: '"'${compiler}'"'.  Edit make.sh to specify your preferred compiler.
+    exit 1
+fi
 
 where_lbfgs=${where_make}/main_code/lbfgs
 where_eigen=${where_make}/main_code/eigen322
