@@ -37,7 +37,7 @@ This will read the graph specified in `model.txt` and the parameters specified i
 ```
 1 3
 1 1
-1 1
+1 0
 1 0
 ```
 

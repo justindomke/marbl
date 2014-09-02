@@ -115,7 +115,7 @@ std::vector<MatrixXd> create_W(int argc, char * argv[], int where_m, int where_d
   
   // actually create W (requires reading first datum)
   int i = 0;
-  read_1data(argv[where_d+1+i],x[i],y[i]);
+  read_datum(argv[where_d+1+i],x[i],y[i]);
   int n = 0;
   std::vector<MatrixXi> cliques; int nnodes; MatrixXi nvals; MatrixXd ent; MatrixXi cliquetype;
   tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1+n]);
@@ -290,7 +290,7 @@ void check_datum(Messages &m, MatrixXi &y){
      int n = who_to_calc[i];
 
      if(!t[n]){
-      read_1data(argv[where_d+1+n],x[n],y[n]);
+      read_datum(argv[where_d+1+n],x[n],y[n]);
       
       std::vector<MatrixXi> cliques; int nnodes; MatrixXi nvals; MatrixXd ent; MatrixXi cliquetype;
       tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1+n]);

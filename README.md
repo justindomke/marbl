@@ -11,11 +11,11 @@ This implementation roughly corresponds to the algorithm described in the paper:
 # Getting started
 
 * Make sure that you have a compiler that supports C++11.  Recent versions of g++ and clang++ are known to work.
-* Install openMPIand/or openMP, if you want parallelism.  (Optional; see below)
+* Install openMPIand/or verify that your compiler supports openMP, if you want parallelism.  (Optional; see below)
 * Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
-* Go to the main code directory, and edit the `make.sh` script in three ways
+* Go to the main code directory, and edit the `make.sh` script in two.
  * Change the `compiler` variable to the one for your system
- * Set the `use_openmp` variable to true/false, depending on if you want openMP support
+ * Set the `use_openmp` variable to true/false, depending on if you want openMP support.
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the `infer_MRF`, `infer_CRF`, `learn_CRF` and (if you have MPI installed) `learn_CRF_mpi` executables.
 * Go through a few of the [examples](examples) to get some idea of what you are doing.
 
@@ -28,7 +28,7 @@ To uninstall Marbl, just delete the main directory.  Nothing is installed anywhe
 * Marbl can handle quite graphs, with factors of any size, variables taking any number of values, and whatever entropy approximation you desire.
 * Marbl can use openMP for parallelism on a single computer with multiple cores.
 * Marbl uses [openMPI](http://www.open-mpi.org/) for parallelism, either on a single computer with multiple cores or on a cluster of machines.  This is trivial to use on a single machine to get your problem running.  (Essentially, you just install openMPI, and then compile using the provided scripts.)  Since almost all clusters provide MPI, you can also run Marbl on clusters of computers.  We have observed essentially linear speedups using up to several hundred cores.
-* Marbl is a command-line tool, with inputs in very simple specified text formats.  Thus, you can use whatever (presumably high-level) language to create your problem, by writing a simple routine to produce the data and graph specifications in the appropriate format.
+* Marbl is a command-line tool, with inputs in simple text formats.  Thus, you can use whatever (presumably high-level) language to create your problem, by writing a simple routine to produce the data and graph specifications in the appropriate format.
 
 # Requirements
 
@@ -38,7 +38,7 @@ Strictly speaking, Marbl requires no external libraries.  However, learning can 
 
 [openMP](http://openmp.org/wp/) is a platform for shared-memory computing.  (i.e. using multiple threads on a single machine).  The executable `learn_CRF` can use openMP if your compiler supports it.  Generally, it would be easier to just install a compiler that supports openMP than trying to install openMP separately.
 
-[Most recent compilers](http://openmp.org/wp/openmp-compilers/) support openMP out of the box.  The major exception is recent versions of xcode/clang on Mac OS.  (i.e. the default gcc compiler).
+[Most recent compilers](http://openmp.org/wp/openmp-compilers/) support openMP out of the box.  The major exception is recent versions of xcode/clang on Mac OS.  (i.e. the default gcc compiler).  Thus, on Mac OS it is recommended to either use MPI for parallelism, or to install a different compiler.  (Recent versions of GNU g++ do support it. and can be installed by standard package managers.)
 
 ### openMPI
 

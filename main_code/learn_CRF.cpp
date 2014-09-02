@@ -121,7 +121,7 @@ int main(int argc, char * argv[]){
   cout.flush();
   #pragma omp parallel for
   for(int i=0; i<ndata; i++)
-    read_1data(argv[where_d+1+i],x[i],y[i]);
+    read_datum(argv[where_d+1+i],x[i],y[i]);
   cout << "done." << endl;
       
   //int len = y[1].rows();
@@ -135,6 +135,11 @@ int main(int argc, char * argv[]){
       tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1+n]);
       m[n] = Messages(cliques, nvals, nnodes, ent, cliquetype);      
       //m.push_back(Messages(cliques, nvals, nnodes, ent, cliquetype));
+
+      if(nnodes!=y[n].size())
+	throw MyException("ERROR: number of nodes in input " + to_string(n) + " does not match model.");
+      if(cliques.size()!=x[n].size())
+	throw MyException("ERROR: number of cliques in data " + to_string(n) + " does not match model.");
     }
     cout << "done." << endl;
 
@@ -150,7 +155,6 @@ int main(int argc, char * argv[]){
 	assert(m[n].nconfigs(c) > 0);
       }
     }
-      
 
     cout << "messages built" << endl;
 
