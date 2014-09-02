@@ -55,7 +55,7 @@ tuple<std::vector<MatrixXi>, int, MatrixXi, MatrixXd, MatrixXi> read_model(strin
   for(int i=0; i<ncliques; i++)
     infile >> ent(i);
 
-  cout << "nnodes: " << nnodes << "  ncliques: " << ncliques << endl;
+  //cout << "nnodes: " << nnodes << "  ncliques: " << ncliques << endl;
 
   // read in clique types
   int ncliques2 = 0;
@@ -65,7 +65,7 @@ tuple<std::vector<MatrixXi>, int, MatrixXi, MatrixXd, MatrixXi> read_model(strin
   for(int i=0; i<ncliques; i++)
     infile >> cliquetype0(i);
   MatrixXi cliquetype = cliquetype0.cast<int>();
-  cout << "here is cliquetype: " << cliquetype.transpose() << endl;
+  //cout << "here is cliquetype: " << cliquetype.transpose() << endl;
 
   // do some sanity checks on clique types
   if(cliquetype.minCoeff()<0)
@@ -192,13 +192,9 @@ void read_datum(string fname, std::vector<MatrixXd> & x, MatrixXi & y){
     //cout << "ncliques[" << i << "]: " << ncliques << endl;
     for(int j=0; j<ncliques; j++){
       ftheta >> nfeats;
-      //if(j % 1000 == 1)
-      //  cout << "nfeats[" << j << "]: " << nfeats << endl;
       x.push_back(MatrixXd(nfeats,1));
       for(int k=0; k<nfeats; k++)
 	ftheta >> x[j](k);
-      //if(j % 100 == 1)
-      //  cout << "x[" << i << "][" << j << "]: " << x[i][j].transpose() << endl;
     }
     ftheta >> nnodes;
     //cout << "nnodes[" << i << "]: " << nnodes << endl;
@@ -209,7 +205,7 @@ void read_datum(string fname, std::vector<MatrixXd> & x, MatrixXi & y){
 
 // this one just reads a single datum
 void read_data(string fname, std::vector<MatrixXd> & x){
-    x = std::vector<MatrixXd>();
+  //x = std::vector<MatrixXd>();
 
     int ncliques;
     int nfeats;

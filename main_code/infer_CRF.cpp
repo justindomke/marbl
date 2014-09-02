@@ -71,31 +71,57 @@ int main(int argc, char * argv[]){
   }
 
   //string where = "/Volumes/ramdisk/";
-  string where = "./";
+  //string where = "./";
 
   std::vector<MatrixXd> x;
   read_data(argv[where_d+1], x);
 
+  /*
+  for(int i=0; i<x.size(); i++)
+    cout << "x["<<i<<"]: " << x[i].transpose() << endl;
+  */
+
   std::vector<MatrixXi> cliques; int nnodes; MatrixXi nvals; MatrixXd ent; MatrixXi cliquetype;
   tie(cliques, nnodes, nvals, ent, cliquetype) = read_model(argv[where_m+1]);
   Messages m = Messages(cliques, nvals, nnodes, ent, cliquetype);
-
+    
   //cout << ent << endl;
 
   auto W = read_params(argv[where_w+1]);
 
-  // cout << "here is W:" << endl;
-  // cout << W.size() << endl;
-  // cout << W[0] << endl << endl;
-  // cout << W[1] << endl;
+  // check that W maps to correct sizes
+  for(int c=0; c<cliques.size(); c++){
+    int ctype = cliquetype(c);
+    if(ctype < 0 || ctype >= W.size())
+      throw MyException("Clique type outside of valid range.  (Must be between 0 and # weight matrices)");
+  }
+
+  // check that data aligns with W and factors
+  if(x.size()!=cliques.size())
+    throw MyException("Error: Input data has different number of cliques than model.");
+  for(int i=0; i<x.size(); i++){
+    int ctype = cliquetype(i);
+    if(x[i].size() != W[ctype].cols())
+      throw MyException("Error: size of data for factor " + to_string(i) + " does not match size of corresponding weight vector (W[" + to_string(ctype) + "])");
+  }
+
+
+  /*
+  cout << "here is W:" << endl;
+  cout << W.size() << endl;
+  cout << W[0] << endl << endl;
+  cout << W[1] << endl;
+  */
 
   if(m.cliques.size() != x.size())
     cout << "ERROR!: size of input does not match model!" << endl;
 
   auto theta = W2theta(W, m, x);
 
-  //cout << "here is theta:" << endl;
-  //cout << theta[0] << endl;
+  /*
+  cout << "here is theta:" << endl;
+  cout << theta[0] << endl;
+  */
 
   //auto theta = read_theta("theta.txt");
 

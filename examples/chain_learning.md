@@ -1,5 +1,6 @@
 Chain CRF learning
 =====
+
 This example shows how to use the `learn_CRF` executable to learn CRF weights for a simple chain model with tied parameters
 
 ```
@@ -12,7 +13,7 @@ This example uses a distribution similar to that in the [chain inference](chain_
 ./learn_CRF -m examples/chain_learning/model*.txt -d examples/chain_learning/data*.txt
 ```
 
-In this example, there are two types of factors: those for single-nodes, and those for pairs.  This is specified in `model1.txt’ (`model2.txt` and `model3.txt` are identical).
+In this example, there are two types of factors: those for single-nodes, and those for pairs.  This is specified in `model1.txt` (`model2.txt` and `model3.txt` are identical).
 
 ```
 4 2 2 2 2
@@ -120,3 +121,39 @@ This is easy to understand.
 3. The third to sixth lines gives the entries of the first matrix
 4. The seventh line states that the second matrix is of size `4` by `1`.
 8. The tenth to eleventh lines give the entries of the second matrix.
+
+# Inference
+
+Once the model has been learned, one might wish to use it to predict marginals on some test datum.  This can be done by running
+
+```
+./infer_CRF -m examples/chain_learning/model1.txt -d examples/chain_learning/testdata.txt -w W.txt -mu marginals.txt -i 1
+```
+
+The file `testdata.txt` contains
+
+```
+7
+2 -.1 .9
+1 .1
+2 .1 -.1
+1 1.3
+2 -.1 -.8
+1 0.2 
+2 .1 1.1
+```
+
+Intuitively, we would expect nodes `0` and `3` to be pushed towards output `1`, and nodes `1` and `2` to be pushed towards output `0`.  After running inference, we can examine the file `marginals.txt`:
+
+```
+2 0.0602732 0.939727 
+4 0.0555329 0.836806 0.00474038 0.102921 
+2 0.892339 0.107661 
+4 0.876833 0.0354171 0.0155058 0.0722443 
+2 0.91225 0.0877501 
+4 0.0281865 0.00132725 0.884063 0.0864228 
+2 0.0295138 0.970486 
+```
+
+This has the factors in the order specified above.  We can see that the marginals probabilities fit exactly what we expect.
+

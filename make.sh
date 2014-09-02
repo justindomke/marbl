@@ -18,11 +18,11 @@ else
 fi
 
 ## first of all, install libLBFGS to a local directory
-echo compiling libLBFGS
-rm -r ${where_make}/main_code/lbfgs >/dev/null 2>&1
-${where_make}/main_code/liblbfgs-1.10/configure --prefix=${where_make}/main_code/lbfgs --srcdir=${where_make}/main_code/liblbfgs-1.10 >/dev/null 2>&1
-make clean >/dev/null 2>&1
-make install >/dev/null 2>&1
+#echo compiling libLBFGS
+#rm -r ${where_make}/main_code/lbfgs >/dev/null 2>&1
+#${where_make}/main_code/liblbfgs-1.10/configure --prefix=${where_make}/main_code/lbfgs --srcdir=${where_make}/main_code/liblbfgs-1.10 >/dev/null 2>&1
+#make clean >/dev/null 2>&1
+#make install >/dev/null 2>&1
 
 # check that libLBFGS installed
 if ls ${where_make}/main_code/lbfgs; then
