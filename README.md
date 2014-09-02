@@ -46,6 +46,7 @@ Despite the similar name, and despite similar goals of parallel computing, openM
   * On linux or Mac OS, openMPI is trivially installed using your favorite package management system.  For example, using [homebrew](http://brew.sh/) on Mac OS, it can be installed with `brew install openmpi`.
   * On Windows, pre-compiled binaries for Cygwin are available [here](http://www.open-mpi.org/software/ompi/v1.8/). 
 
+It may be possible to use Marbl with other implementations of MPI, but this hasn’t been tested yet.
 
 # Comparison with JGML
 

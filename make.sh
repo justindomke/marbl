@@ -5,7 +5,7 @@ mpi_compiler=mpic++
 
 #compiler=g++-4.9
 #compiler=clang++ # works fine on MacOS, but has no openMP support
-compiler=g++ # works fine, but no openMP support with deault g++ on MacOS
+compiler=gcc # works fine, but no openMP support with deault gcc on MacOS
 
 where_make="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -18,14 +18,14 @@ else
 fi
 
 ## first of all, install libLBFGS to a local directory
-#echo compiling libLBFGS
-#rm -r ${where_make}/main_code/lbfgs >/dev/null 2>&1
-#${where_make}/main_code/liblbfgs-1.10/configure --prefix=${where_make}/main_code/lbfgs --srcdir=${where_make}/main_code/liblbfgs-1.10 >/dev/null 2>&1
-#make clean >/dev/null 2>&1
-#make install >/dev/null 2>&1
+echo compiling libLBFGS
+rm -r ${where_make}/main_code/lbfgs >/dev/null 2>&1
+${where_make}/main_code/liblbfgs-1.10/configure --prefix=${where_make}/main_code/lbfgs --srcdir=${where_make}/main_code/liblbfgs-1.10 >/dev/null 2>&1
+make clean >/dev/null 2>&1
+make install >/dev/null 2>&1
 
 # check that libLBFGS installed
-if ls ${where_make}/main_code/lbfgs; then
+if ls ${where_make}/main_code/lbfgs >/dev/null 2>&1; then
     echo [libLBFGS compiled successfully];
 else
     echo [libLBFGS compile failed!];
