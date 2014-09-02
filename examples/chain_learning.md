@@ -99,7 +99,7 @@ This makes intuitive sense, given the correlations discussed above:
 
 This is written to a file `W.txt`.
 
-``
+```
 2
 2 2
 -0.174765 
