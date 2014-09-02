@@ -21,4 +21,4 @@ There is also an example of how to do [logistic regression using MPI](logistic_r
 
 # Learning chain CRFs
 
-A simple chain CRF with four nodes is learned in (chain learning)[chain_learning.md].
+A simple chain CRF with four nodes is learned in [chain learning](chain_learning.md).
