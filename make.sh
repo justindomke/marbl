@@ -5,7 +5,8 @@ mpi_compiler=mpic++
 
 #compiler=g++-4.9
 #compiler=clang++ # works fine on MacOS, but has no openMP support
-compiler=gcc # works fine, but no openMP support with deault gcc on MacOS
+#compiler=gcc # works fine, but no openMP support with deault gcc on MacOS
+compiler=g++
 
 where_make="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -54,14 +55,30 @@ fi
 ## theoretically, don't need lbfgs for infer_{MRF/CRF} executables, but because of the way the code is structured, included anyway
 
 ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_MRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_MRF
-echo "[infer_MRF compiled.]"
+if command -v ${where_make}/infer_MRF >/dev/null 2>&1; then
+    echo "[infer_MRF compiled.]"
+else
+    echo "[infer_MRF compile failed!]"
+    exit 1
+fi
+
 ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_CRF
-echo "[infer_CRF compiled.]"
+if command -v ${where_make}/infer_MRF >/dev/null 2>&1; then
+    echo "[infer_CRF compiled.]"
+else
+    echo "[infer_CRF compile failed!]"
+    exit 1
+fi
 
 if $use_openmp; then
     ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF -fopenmp
 else
     ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF
+fi
+
+if ! command -v ${where_make}/learn_CRF >/dev/null 2>&1; then
+    echo "[learn_CRF compile failed!]"
+    exit 1
 fi
 
 if ${use_openmp}; then
