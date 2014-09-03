@@ -11,11 +11,11 @@ This implementation roughly corresponds to the algorithm described in the paper:
 # Getting started
 
 * Make sure that you have a compiler that supports C++11.  Recent versions of g++ and clang++ are known to work.
-* Install openMPIand/or verify that your compiler supports openMP, if you want parallelism.  (Optional; see below)
+* Install openMPI and/or verify that your compiler supports openMP, if you want parallelism.  (Optional; see below)
 * Download the [code](https://github.com/justindomke/marbl/archive/master.zip).
-* Go to the main code directory, and edit the `make.sh` script in two.
- * Change the `compiler` variable to the one for your system
- * Set the `use_openmp` variable to true/false, depending on if you want openMP support.
+* Go to the main code directory, and edit the `make.sh` script in two ways.
+ * Change the `compiler` variable to the one for your system.
+ * Set the `mpi_compiler` variable the the one for your system  (default will usually be OK).
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the `infer_MRF`, `infer_CRF`, `learn_CRF` and (if you have MPI installed) `learn_CRF_mpi` executables.
 * Go through a few of the [examples](examples) to get some idea of what you are doing.
 
