@@ -4,14 +4,14 @@ single node inference
 This example shows how to use the `infer_MRF` executable to do inference on pretty much the simplest possible graph: a single-node model.
 
 ```
-   (x0)
+   (x₀)
 ```
 
 In this model, we have that
 
 ```
-p(x0=0) = exp(-1)/Z
-p(x0=1) = exp(+1)/Z
+p(x₀=0) = exp(-1)/Z
+p(x₀=1) = exp(+1)/Z
 ```
 
 for some normalization factor Z.  You can run this example by doing, from the command line
@@ -61,6 +61,6 @@ This is explained as follows:
 Note that this makes sense.  If we look at the original specification of the model, we could have calculated the probabilities by hand:
 
 ```
-p(x0=0)=exp(-1)/(exp(-1)+exp(+1))=0.119203
-p(x1=1)=exp(+1)/(exp(-1)+exp(+1))=0.880797
+p(x₀=0)=exp(-1)/(exp(-1)+exp(+1))=0.119203
+p(x₀=1)=exp(+1)/(exp(-1)+exp(+1))=0.880797
 ```
