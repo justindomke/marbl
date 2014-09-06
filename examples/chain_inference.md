@@ -5,27 +5,27 @@ This example shows how to use the `infer_MRF` executable to do inference on a si
 
 
 ```
-   (x0)—(x1)—(x2)—(x3)
+   (x₀)—(x₁)—(x₂)—(x₃)
 ```
 
 In this problem, we will use the following distribution
 
 ```
-p(x)=exp(f0(x0)+f1(x1)+f2(x2)+f3(x3)+f01(x0,x1)+f12(x1,x2)+f12(x2,x3))/Z
-f0(x0=0)=-1
-f0(x0=1)=+1
-f1(x1=0)=-1
-f1(x1=1)=+1
-f2(x2=0)=-1
-f2(x2=1)=+1
-f3(x3=0)=-1
-f3(x3=1)=+1
-f01(x0!=x1)=-1
-f01(x0 =x1)=+1
-f12(x1!=x2)=-1
-f12(x1 =x2)=+1
-f23(x2!=x3)=-1
-f23(x2 =x3)=+1
+p(x)=exp(f₀(x₀)+f₁(x₁)+f₂(x₂)+f₃(x₃)+f₀₁(x₀,x₁)+f₁₂(x₁,x₂)+f₁₂(x₂,x₃))/Z
+f₀(x₀=0)=-1
+f₀(x₀=1)=+1
+f₁(x₁=0)=-1
+f₁(x₁=1)=+1
+f₂(x₂=0)=-1
+f₂(x₂=1)=+1
+f₃(x₃=0)=-1
+f₃(x₃=1)=+1
+f₀₁(x₀≠x₁)=-1
+f₀₁(x₀=x₁)=+1
+f₁₂(x₁≠x₂)=-1
+f₁₂(x₁=x₂)=+1
+f₂₃(x₂≠x₃)=-1
+f₂₃(x₂=x₃)=+1
 ```
 
 for some normalization factor Z.  You can run this example by doing, from the command line
@@ -108,10 +108,10 @@ This is explained as follows:
 As above, this is in column-major format.  So, for example
 
 ```
-p(x0=0,x1=0)=0.00304756
-p(x0=1,x1=0)=0.00304756
-p(x0=0,x1=1)=0.0178766
-p(x0=1,x1=1)=0.976028 
+p(x₀=0,x₁=0)=0.00304756
+p(x₀=1,x₁=0)=0.00304756
+p(x₀=0,x₁=1)=0.0178766
+p(x₀=1,x₁=1)=0.976028 
 ```
 
 Intuitively, the marginal probabilities are mostly concentrated around an all-one configuration.  This makes sense, since all the unary factors point in that direction, and there is a strong smoothness penalty in the pairwise terms.
