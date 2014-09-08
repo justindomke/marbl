@@ -3,30 +3,25 @@ marbl
 
 This example shows how to use the `infer_MRF` executable to do inference on a simple chain model.
 
-
-```
-   (x₀)—(x₁)—(x₂)—(x₃)
-```
+> (x₀)—(x₁)—(x₂)—(x₃)
 
 In this problem, we will use the following distribution
 
-```
-p(x)=exp(f₀(x₀)+f₁(x₁)+f₂(x₂)+f₃(x₃)+f₀₁(x₀,x₁)+f₁₂(x₁,x₂)+f₁₂(x₂,x₃))/Z
-f₀(x₀=0)=-1
-f₀(x₀=1)=+1
-f₁(x₁=0)=-1
-f₁(x₁=1)=+1
-f₂(x₂=0)=-1
-f₂(x₂=1)=+1
-f₃(x₃=0)=-1
-f₃(x₃=1)=+1
-f₀₁(x₀≠x₁)=-1
-f₀₁(x₀=x₁)=+1
-f₁₂(x₁≠x₂)=-1
-f₁₂(x₁=x₂)=+1
-f₂₃(x₂≠x₃)=-1
-f₂₃(x₂=x₃)=+1
-```
+> p(x)=exp(f₀(x₀)+f₁(x₁)+f₂(x₂)+f₃(x₃)+f₀₁(x₀,x₁)+f₁₂(x₁,x₂)+f₁₂(x₂,x₃))/Z
+> f₀(x₀=0)=-1
+> f₀(x₀=1)=+1
+> f₁(x₁=0)=-1
+> f₁(x₁=1)=+1
+> f₂(x₂=0)=-1
+> f₂(x₂=1)=+1
+> f₃(x₃=0)=-1
+> f₃(x₃=1)=+1
+> f₀₁(x₀≠x₁)=-1
+> f₀₁(x₀=x₁)=+1
+> f₁₂(x₁≠x₂)=-1
+> f₁₂(x₁=x₂)=+1
+> f₂₃(x₂≠x₃)=-1
+> f₂₃(x₂=x₃)=+1
 
 for some normalization factor Z.  You can run this example by doing, from the command line
 
@@ -34,7 +29,7 @@ for some normalization factor Z.  You can run this example by doing, from the co
 ./infer_MRF -m examples/chain_inference/model.txt -f examples/chain_inference/theta.txt -mu marginals.txt -i 1
 ```
 
-This will read the graph specified in `model.txt` and the parameters specified in `theta.txt`, do inference, and produce marginals in the file `marginals.txt’.  `-i 1` specifies that a single pass of updates over the variables is to be done.  (A single pass updates all cliques from start to end and then in reverse.)
+This will read the graph specified in `model.txt` and the parameters specified in `theta.txt`, do inference, and produce marginals in the file `marginals.txt`.  `-i 1` specifies that a single pass of updates over the variables is to be done.  (A single pass updates all cliques from start to end and then in reverse.)
 
 `model.txt` has the following form:
 
@@ -82,8 +77,8 @@ Where do the entropy factors come from?  These correspond to the [Bethe entropy]
 
 This line is explained as follows:
 
-1. `2 -1 1`  Specifies that the first factor (that for x0 alone) has `2` possible configurations, and that these have parameter values `-1` and `+1`.
-2. `4 1 -1 -1 1` Specifies that the second factor (that for x0 and x1) has `4` possible configurations, and that these have parameter values of `1` when x0=x1 and `-1` when x0!=x1.
+1. `2 -1 1`  Specifies that the first factor (that for x₀ alone) has `2` possible configurations, and that these have parameter values `-1` and `+1`.
+2. `4 1 -1 -1 1` Specifies that the second factor (that for x₀ and x₁) has `4` possible configurations, and that these have parameter values of `1` when x₀=x₁ and `-1` when x0≠x1.
 3. The other lines are similar.
 
 Note that the factors for pairs are given in column-major order.  Similarly, if one has a factor with N variables, this is reduced to a single line by going through the first dimension most quickly, and the last dimension most slowly.
@@ -101,8 +96,8 @@ After running the code, a file `marginals.txt` will be produced in the main dire
 ```
 
 This is explained as follows:
-1. The first factor (that for x0 alone) has `2` possible configurations, and these have a marginal probability of `0.0209241` and `0.979076`
-2. The second factor (that for x0 and x1) has `4` possible configurations, and these have a marginal probability of `0.00304756 0.00304756 0.0178766 0.976028`.
+1. The first factor (that for x₀ alone) has `2` possible configurations, and these have a marginal probability of `0.0209241` and `0.979076`
+2. The second factor (that for x₀ and x₁) has `4` possible configurations, and these have a marginal probability of `0.00304756 0.00304756 0.0178766 0.976028`.
 3. The other lines are similar.
 
 As above, this is in column-major format.  So, for example

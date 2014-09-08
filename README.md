@@ -25,10 +25,10 @@ To uninstall Marbl, just delete the main directory.  Nothing is installed anywhe
 
 # Features
 
-* Marbl can handle quite graphs, with factors of any size, variables taking any number of values, and whatever entropy approximation you desire.
+* Marbl can handle quite general graphs, with factors of any size, variables taking any number of values, and whatever entropy approximation you desire.
 * Marbl can use openMP for parallelism on a single computer with multiple cores.
-* Marbl uses [openMPI](http://www.open-mpi.org/) for parallelism, either on a single computer with multiple cores or on a cluster of machines.  This is trivial to use on a single machine to get your problem running.  (Essentially, you just install openMPI, and then compile using the provided scripts.)  Since almost all clusters provide MPI, you can also run Marbl on clusters of computers.  We have observed essentially linear speedups using up to several hundred cores.
-* Marbl is a command-line tool, with inputs in simple text formats.  Thus, you can use whatever (presumably high-level) language to create your problem, by writing a simple routine to produce the data and graph specifications in the appropriate format.
+* Marbl can use [openMPI](http://www.open-mpi.org/) for parallelism, either on a single computer with multiple cores or on a cluster of machines.  This is trivial to use on a single machine to get your problem running.  (Essentially, you just install openMPI, and then compile using the provided scripts.)  Since almost all clusters provide MPI, you can also run Marbl on clusters of computers.  We have observed essentially linear speedups using up to several hundred cores.
+* Marbl is a command-line tool, with inputs in simple text formats.  Thus, you can use whatever (presumably high-level) language to create your problem, by writing a small routine to produce the data and graph specifications in the appropriate format.
 
 # Requirements
 
