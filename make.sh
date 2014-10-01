@@ -54,7 +54,7 @@ fi
 
 ## theoretically, don't need lbfgs for infer_{MRF/CRF} executables, but because of the way the code is structured, included anyway
 
-${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_MRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_MRF
+${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_MRF.cpp main_code/lbfgs/lib/liblbfgs.a -Imain_code/lbfgs/include -I${where_eigen} -o infer_MRF
 if command -v ${where_make}/infer_MRF >/dev/null 2>&1; then
     echo "[infer_MRF compiled.]"
 else
@@ -62,7 +62,7 @@ else
     exit 1
 fi
 
-${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o infer_CRF
+${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/infer_CRF.cpp main_code/lbfgs/lib/liblbfgs.a -Imain_code/lbfgs/include -I${where_eigen} -o infer_CRF
 if command -v ${where_make}/infer_MRF >/dev/null 2>&1; then
     echo "[infer_CRF compiled.]"
 else
@@ -71,9 +71,9 @@ else
 fi
 
 if $use_openmp; then
-    ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF -fopenmp
+    ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp main_code/lbfgs/lib/liblbfgs.a -Imain_code/lbfgs/include -I${where_eigen} -o learn_CRF -fopenmp
 else
-    ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF
+    ${compiler} -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF.cpp main_code/lbfgs/lib/liblbfgs.a -Imain_code/lbfgs/include -I${where_eigen} -o learn_CRF
 fi
 
 if ! command -v ${where_make}/learn_CRF >/dev/null 2>&1; then
@@ -97,6 +97,6 @@ else
 fi
 
 export OMPI_CXX=${compiler}
-mpic++ -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF_mpi.cpp -llbfgs -I${where_lbfgs}/include -L${where_lbfgs}/lib -I${where_eigen} -o learn_CRF_mpi
+mpic++ -O3 -Ofast -funroll-loops -std=c++11 main_code/learn_CRF_mpi.cpp main_code/lbfgs/lib/liblbfgs.a -I${where_eigen} -o learn_CRF_mpi
 
 echo "[learn_CRF_mpi compiled.]"

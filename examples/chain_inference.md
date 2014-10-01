@@ -3,16 +3,18 @@ marbl
 
 This example shows how to use the `infer_MRF` executable to do inference on a simple chain model.
 
-
-    (x₀)—(x₁)—(x₂)—(x₃)
+```
+(x₀)—(x₁)—(x₂)—(x₃)
+```
 
 In this problem, we will use the following distribution
 
-    p(x)=exp(f₀(x₀)+f₁(x₁)+f₂(x₂)+f₃(x₃)+f₀₁(x₀,x₁)+f₁₂(x₁,x₂)+f₁₂(x₂,x₃))/Z
-    f₀(x₀=0)=-1
-    f₀(x₀=1)=+1
-    f₁(x₁=0)=-1
+
 ```
+p(x)=exp(f₀(x₀)+f₁(x₁)+f₂(x₂)+f₃(x₃)+f₀₁(x₀,x₁)+f₁₂(x₁,x₂)+f₁₂(x₂,x₃))/Z
+f₀(x₀=0)=-1
+f₀(x₀=1)=+1
+f₁(x₁=0)=-1
 f₁(x₁=1)=+1
 f₂(x₂=0)=-1
 f₂(x₂=1)=+1
