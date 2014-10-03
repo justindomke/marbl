@@ -18,6 +18,7 @@ This implementation roughly corresponds to the algorithm described in the paper:
  * Set the `mpi_compiler` variable the the one for your system  (default will usually be OK).
 * Run the `make.sh` script.  This will compile and install libLBFGS to a local directory, and then build the `infer_MRF`, `infer_CRF`, `learn_CRF` and (if you have MPI installed) `learn_CRF_mpi` executables.
 * Go through a few of the [examples](examples) to get some idea of what you are doing.
+* Read the [Frequently Asked Questions](FAQ.md).
 
 Note that Marbl has been compiled under Mac OS and Linux, but hasn’t been tested under Windows.  If you are able to compile under Windows, please send any information about how you did so.
 
