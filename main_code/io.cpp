@@ -91,6 +91,10 @@ tuple<std::vector<MatrixXi>, int, MatrixXi, MatrixXd, MatrixXi> read_model(strin
       infile >> mynodes(n);
     cliques.push_back(mynodes);
   }
+
+  if(cliques.size() != ncliques)
+    throw MyException("Error: " + fname + " is not self-consistent in terms of the number of cliques.");
+
   sanity_checks(cliques,nnodes);
   return make_tuple(cliques, nnodes, nvals, ent, cliquetype);
 }
