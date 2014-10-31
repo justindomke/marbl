@@ -59,7 +59,9 @@ std::vector<MatrixXd> fit_CRF(const std::vector<std::vector<MatrixXd>> & x, cons
       
       double gradnorm = 0;
       for(int n=0; n<x.size(); n++)
-	gradnorm += y[n].size();
+	gradnorm += (y[n].array() > -1).count();
+	//gradnorm += y[n].size();
+      cout << "gradnorm: " << gradnorm << endl;
 
       #pragma omp parallel for
       //for(int n=0; n<x.size(); n++){
@@ -114,7 +116,7 @@ std::vector<MatrixXd> fit_CRF(const std::vector<std::vector<MatrixXd>> & x, cons
       }
 
       //regularization yo yo yo
-      double reg = .01;
+      double reg = .001;
       for(int ctype=0; ctype<W.size(); ctype++){
 	L         +=   reg*W[ctype].array().pow(2).sum();
 	dW[ctype] += 2*reg*W[ctype];
@@ -187,7 +189,7 @@ std::vector<MatrixXd> fit_CRF(const std::vector<std::vector<MatrixXd>> & x, cons
   // now, create a bunch of arrays that map from inputs to outputs
   std::vector<MatrixXd> W;
   for(int ctype=0; ctype < nctypes; ctype++){
-    W.push_back(MatrixXd::Zero(output_sizes(ctype),input_sizes(ctype)));
+    W.push_back(MatrixXd::Random(output_sizes(ctype),input_sizes(ctype)));
   }
 
   return fit_CRF(x, y, m, opt_alg, opt_params, niters, W);

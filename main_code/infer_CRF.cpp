@@ -67,7 +67,7 @@ int main(int argc, char * argv[]){
     cout << "using default of " << niters << " iters" << endl;
   }else{
     niters = stoi(argv[where_i+1]);
-    cout << "using " << niters << " iters" << endl;
+    //cout << "using " << niters << " iters" << endl;
   }
 
   //string where = "/Volumes/ramdisk/";
