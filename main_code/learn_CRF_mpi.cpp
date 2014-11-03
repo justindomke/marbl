@@ -420,10 +420,12 @@ int main(int argc, char * argv[]){
     cout << "elapsed time: " << mtime/1000.0 << " seconds" << endl;
   };
   
+  /*
   cout << "initial weights:" << endl;
   for(int ctype=0; ctype < nctypes; ctype++)
     cout << " W["<<ctype<<"]:"<<endl<<W[ctype]<<endl;
-  
+  */
+
   if(opt_alg != "lbfgs")
     throw new MyException("optimization algoritm must be lbfgs");
 
@@ -445,10 +447,12 @@ int main(int argc, char * argv[]){
   for(int worker_rank=0; worker_rank<world_size-1; worker_rank++)
     MPI_Send(&exit_flag, 1, MPI_INT, worker_rank+1, 0, MPI_COMM_WORLD);
 
+  /*
   cout << "weights after optimization:" << endl;
   for(int ctype=0; ctype < nctypes; ctype++)
     cout << " W["<<ctype<<"]:"<<endl<<W[ctype]<<endl;
-    
+  */    
+
   if(where_wout >= argc-1)
     write_params("W.txt",W);
   else
