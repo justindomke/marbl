@@ -156,108 +156,6 @@ std::vector<MatrixXd> create_W(int argc, char * argv[], int where_m, int where_d
   return W;
 }
 
-void read_command_line(int argc, char * argv[], int &where_m, int &where_d, int &ndata, int & niters, string & opt_alg, MatrixXd & opt_params, bool & have_W, int & where_w, double & reg, bool doprint){
-  //cout << "argc: " << argc << endl;
-  where_m = 0;
-  while(where_m < argc && strcmp(argv[where_m],"-m")!=0 )
-    where_m++;
-  if(where_m == argc)
-    throw MyException("Error! no model flag found!");
-  int where_m_end = where_m+1;
-  while(where_m_end < argc && argv[where_m_end][0] != '-')
-    where_m_end++;
-
-  where_d = 0;
-  while(where_d < argc && strcmp(argv[where_d],"-d")!=0 )
-    where_d++;
-  if(where_d == argc)
-    throw MyException("Error! no data flag found!");
-  int where_d_end = where_d+1;
-  while(where_d_end < argc && argv[where_d_end][0] != '-')
-    where_d_end++;
-
-  int where_i = 0;
-  niters = 10;
-  while(where_i < argc && strcmp(argv[where_i],"-i")!=0)
-    where_i++;
-  if(where_i >= argc-1){
-    if(doprint)
-      cout << "using default of " << niters << " iters" << endl;
-  }else{
-    niters = stoi(argv[where_i+1]);
-    if(doprint)
-      cout << "using " << niters << " iters" << endl;
-  }
-
-  int where_r = 0;
-  reg = .01;
-  while(where_r < argc && strcmp(argv[where_r],"-r")!=0)
-    where_r++;
-  if(where_r >= argc-1){
-    if(doprint)
-      cout << "using default regularizer of " << reg << endl;
-  }else{
-    reg = stod(argv[where_r+1]);
-    if(doprint)
-      cout << "using regularizer of " << reg << endl;
-  }
-
-
-  int where_a = 0;
-  opt_alg = "lbfgs";
-  while(where_a < argc && strcmp(argv[where_a],"-a")!=0)
-    where_a++;
-  if(where_a >= argc-1){
-    if(doprint)
-      cout << "using default algorithm of " << opt_alg << endl;
-  }else{
-    opt_alg = argv[where_a+1];
-    if(doprint)
-      cout << "using algorithm: " << opt_alg << endl;
-    // find next (or when)
-    int where_a_end = where_a+1;
-    while(where_a_end < argc && argv[where_a_end][0] != '-')
-      where_a_end++;
-    int len = where_a_end-where_a-2;
-    opt_params = MatrixXd(len,1);
-    for(int i=0; i<len; i++)
-      opt_params(i) = strtod(argv[where_a+2+i],NULL);
-    if(doprint)
-      cout << "opt_params: " << opt_params.transpose() << endl;
-  }
-
-  ndata   = where_d_end-where_d-1;
-  int nmodels = where_m_end-where_m-1;
-  
-  if(ndata != nmodels)
-    throw MyException("Error! number of data not equal to number of models!");
-
-  /*
-  cout << "here are the model files: ";
-  for(int i=where_m+1; i < where_m_end; i++)
-    cout << argv[i] << " ";
-  cout << endl;
-  cout << "here are the data files: ";
-  for(int i=where_d+1; i < where_d_end; i++)
-    cout << argv[i] << " ";
-  cout << endl;
-  */
-
-  where_w = 0;
-  while(where_w < argc && strcmp(argv[where_w],"-w")!=0 )
-    where_w++;
-  if(where_w >= argc-1){
-    have_W = false;
-    if(doprint)
-      cout << "using default (zero) weights" << endl;
-  }
-  else{
-    have_W = true;
-    if(doprint)
-      cout << "reading W from " << argv[where_w+1] << endl;
-  }
-}
-
 void check_datum(Messages &m, MatrixXi &y){
   for(int i=0; i<m.nnodes; i++)
     assert(y(i) >= -1 && y(i) < m.nvals(i));
@@ -275,8 +173,8 @@ void check_datum(Messages &m, MatrixXi &y){
 			int nctypes, VectorXi &output_sizes, VectorXi &input_sizes, double &gradnorm, int iter_mult){
    // parse the command line
    string opt_alg; MatrixXd opt_params; bool have_W; double reg;
-   int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w;
-   read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, reg, false);
+   int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w, where_wout;
+   read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, where_wout, reg, false);
 
     // put serialized weights in
    deserialize(W_serialized,W);
@@ -362,8 +260,8 @@ int main(int argc, char * argv[]){
 
     // parse the command line
     string opt_alg; MatrixXd opt_params; bool have_W; double reg;
-    int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w;
-    read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, reg, false);
+    int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w, where_wout;
+    read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, where_wout, reg, false);
     
     // create structure for weights
     int nctypes; VectorXi output_sizes, input_sizes;
@@ -438,8 +336,8 @@ int main(int argc, char * argv[]){
 
   // get information from the command line
   string opt_alg; MatrixXd opt_params; bool have_W; double reg;
-  int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w;
-  read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, reg, true);
+  int where_m, where_m_end, where_d, where_d_end, niters, ndata, where_w, where_wout;
+  read_command_line(argc, argv, where_m, where_d, ndata, niters, opt_alg, opt_params, have_W, where_w, where_wout, reg, true);
 
   // either read W from a file, or create it
   int nctypes; VectorXi output_sizes, input_sizes;
@@ -529,11 +427,12 @@ int main(int argc, char * argv[]){
   if(opt_alg != "lbfgs")
     throw new MyException("optimization algoritm must be lbfgs");
 
+  /*
   iter_mult = 0;
   if(!have_W){
     cout << "since initial weights are zero, initializing with a search with iter=0" << endl;
     W = lbfgs(erisk, W, false);
-  }
+    }*/
   iter_mult = 1;
 
   for(int restarts=0; restarts < 4; restarts++){
@@ -550,7 +449,10 @@ int main(int argc, char * argv[]){
   for(int ctype=0; ctype < nctypes; ctype++)
     cout << " W["<<ctype<<"]:"<<endl<<W[ctype]<<endl;
     
+  if(where_wout >= argc-1)
     write_params("W.txt",W);
+  else
+    write_params(argv[where_wout+1],W);
   
     MPI_Finalize();
     exit(0);
