@@ -102,7 +102,7 @@ std::vector<MatrixXd> init_W(const std::vector<features> & x, const std::vector<
   // now, create a bunch of arrays that map from inputs to outputs
   std::vector<MatrixXd> W;
   for(int ctype=0; ctype < nctypes; ctype++){
-    W.push_back(MatrixXd::Zero(output_sizes(ctype),input_sizes(ctype)));
+    W.push_back(MatrixXd::Random(output_sizes(ctype),input_sizes(ctype)));
   }
   return W;
 }
