@@ -234,7 +234,8 @@ void check_datum(Messages &m, MatrixXi &y){
      infer_parchild_bprop(m[n],theta,mini_L,dtheta,loss,niters*iter_mult);
      my_L += mini_L;
 
-     gradnorm += y[n].rows()*y[n].cols();
+     //gradnorm += y[n].rows()*y[n].cols();
+     gradnorm += (y[n].array() > -1).count();
      
      // now, propagate dtheta back to W
      for(int c=0; c<m[n].cliques.size(); c++){
